@@ -1,0 +1,2915 @@
+
+    :root {
+      --bg-page: #e2e8f0;
+      --bg-slide: #ffffff;
+      --surface-card: #ffffff;
+      --surface-border: #cbd5e1;
+      
+      --text-main: #0f172a;
+      --text-body: #1e293b;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      
+      --primary-blue: #0284c7;
+      --primary-navy: #0f2744;
+      --accent-teal: #0d9488;
+      --accent-cyan: #0891b2;
+      --accent-amber: #d97706;
+      --accent-red: #dc2626;
+      --accent-purple: #7e22ce;
+      
+      --font-sans: 'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    /* Presentation Stage: Zero-waste fixed 1600x900 canvas, centered and scaled to fill screen */
+    .presentation-stage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 48px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-color: var(--bg-page);
+      padding: 0;
+      z-index: 10;
+    }
+
+    .slide-frame {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1600px;
+      height: 900px;
+      min-width: 1600px;
+      min-height: 900px;
+      max-width: 1600px;
+      max-height: 900px;
+      transform: translate(-50%, -50%) scale(1);
+      transform-origin: center center;
+      background: var(--bg-slide);
+      border-radius: 14px;
+      border: 2px solid #cbd5e1;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      user-select: text;
+    }
+
+    :fullscreen .presentation-stage,
+    :-webkit-full-screen .presentation-stage {
+      bottom: 0 !important;
+      height: 100vh;
+      background-color: #0b1120;
+    }
+    :fullscreen .slide-frame,
+    :-webkit-full-screen .slide-frame {
+      border: none;
+      border-radius: 0;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+    :fullscreen .bottom-nav,
+    :-webkit-full-screen .bottom-nav {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    :fullscreen:hover .bottom-nav,
+    :-webkit-full-screen:hover .bottom-nav {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Bottom presentation control bar: STRICTLY LOCKED CONSTANT 48px HEIGHT */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 48px !important;
+      min-height: 48px !important;
+      max-height: 48px !important;
+      line-height: 48px;
+      background: #ffffff;
+      border-top: 2px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      z-index: 100;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+      flex-wrap: nowrap !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 1;
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .brand-badge {
+      background: #0284c7;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 13.5px;
+      padding: 2px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-shrink: 1;
+    }
+
+    .section-pill {
+      background: #f0f9ff;
+      color: #0369a1;
+      border: 1.5px solid #bae6fd;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 700;
+      max-width: 260px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex-shrink: 1;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .slide-counter {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 0 10px;
+      height: 32px !important;
+      line-height: 30px !important;
+      box-sizing: border-box !important;
+      border-radius: 6px;
+      min-width: 86px;
+      text-align: center;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .btn-icon {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      color: #0f172a;
+      cursor: pointer;
+      padding: 0 12px;
+      height: 32px !important;
+      line-height: 30px !important;
+      box-sizing: border-box !important;
+      border-radius: 6px;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+      font-family: inherit;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-icon:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+      transform: translateY(-1px);
+    }
+
+    .btn-icon.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+    }
+
+    /* Slide Content Structure: NO OVERFLOW, EVERYTHING FITS! */
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 1600px;
+      height: 900px;
+      padding: 28px 50px 20px 50px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease-out;
+      overflow: hidden; /* STRICTLY NO SCROLLBAR */
+      background: #ffffff;
+      box-sizing: border-box;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 10;
+    }
+
+    .step-num-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 19px;
+      font-weight: 900;
+      flex-shrink: 0;
+      line-height: 1;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+    }
+
+    .step-num-badge.amber {
+      background: #0284c7;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+    }
+
+    /* ===================================================
+       DRUG MONOGRAPH LINEAR PRESENTATION (Match User Ref)
+       =================================================== */
+    .drug-linear-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* Always align to top so top text is NEVER cut off */
+      gap: 12px;
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      box-sizing: border-box;
+      overflow-y: auto; /* Scrollbar allows scrolling down smoothly */
+      scrollbar-width: thin;
+      scrollbar-color: #94a3b8 #f1f5f9;
+      padding-right: 8px;
+      padding-bottom: 28px;
+      margin: 0;
+    }
+
+    .drug-linear-container::-webkit-scrollbar,
+    .slide-body::-webkit-scrollbar {
+      width: 8px;
+    }
+    .drug-linear-container::-webkit-scrollbar-track,
+    .slide-body::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 4px;
+    }
+    .drug-linear-container::-webkit-scrollbar-thumb,
+    .slide-body::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 4px;
+    }
+    .drug-linear-container::-webkit-scrollbar-thumb:hover,
+    .slide-body::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+
+    .drug-sec {
+      border-bottom: 1.5px solid #e2e8f0;
+      padding-bottom: 12px;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      flex: 0 0 auto;
+    }
+
+    .drug-sec:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .drug-sec-title {
+      font-size: 26px; /* Large section title */
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .sec-blue {
+      color: #0284c7;
+    }
+
+    .sec-red {
+      color: #dc2626;
+    }
+
+    .sec-icon {
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .drug-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .drug-item {
+      font-size: 23px; /* Large legible drug item font */
+      line-height: 1.52;
+      color: #1e293b;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .drug-item strong {
+      color: #0f172a;
+      font-weight: 800;
+    }
+
+    .bullet-dot {
+      font-size: 24px;
+      line-height: 1.35;
+      flex-shrink: 0;
+    }
+
+    .bullet-blue {
+      color: #0284c7;
+    }
+
+    .bullet-red {
+      color: #dc2626;
+    }
+
+    .sub-item {
+      margin-left: 34px;
+      font-size: 21px; /* Large legible sub-item font */
+      line-height: 1.5;
+      color: #334155;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .sub-item strong {
+      color: #0f172a;
+      font-weight: 800;
+    }
+
+    .sub-icon {
+      color: #0284c7;
+      font-weight: 900;
+      flex-shrink: 0;
+      font-size: 19px;
+      line-height: 1.5;
+    }
+
+    /* Drug Slide Header */
+    .drug-slide-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+
+    .drug-header-main {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .drug-unit-pill {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 21px;
+      font-weight: 800;
+      padding: 6px 20px;
+      border-radius: 9999px;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .drug-main-title {
+      font-size: 38px;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin: 0;
+    }
+
+    .drug-page-badge {
+      font-size: 17px;
+      font-weight: 700;
+      color: #64748b;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 5px 14px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    /* Header */
+    .slide-header {
+      margin-bottom: 14px;
+      flex-shrink: 0;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 12px;
+    }
+
+    .tag-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .slide-tag {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+
+    .slide-tag.blue { background: #e0f2fe; color: #0369a1; border-color: #7dd3fc; }
+    .slide-tag.cyan { background: #ccfbf1; color: #0f766e; border-color: #5eead4; }
+    .slide-tag.red { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
+    .slide-tag.amber { background: #fef3c7; color: #b45309; border-color: #fcd34d; }
+    .slide-tag.purple { background: #f3e8ff; color: #7e22ce; border-color: #d8b4fe; }
+
+    .slide-title {
+      font-size: 44px; /* Large bold title */
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+    }
+
+    /* Slide Body: Flex layout, expands naturally with safe scroll */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Vertically balances content across the canvas! */
+      gap: 16px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      min-height: 0;
+    }
+
+    .slide-h3 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0284c7;
+      margin-top: 4px;
+      margin-bottom: 8px;
+      border-left: 6px solid #0284c7;
+      padding-left: 16px;
+    }
+
+    .slide-h4 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #b45309;
+      margin-top: 4px;
+    }
+
+    .slide-p {
+      font-size: 25px; /* Large legible paragraph font */
+      color: #1e293b;
+      line-height: 1.7;
+    }
+
+    /* Large Bullet List - Fills vertical height evenly */
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-evenly; /* Spreads bullets across vertical canvas! */
+      gap: 14px;
+      margin: 6px 0;
+      padding: 0;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 38px;
+      color: #0f172a;
+      font-size: 25.5px; /* Large 25.5px text */
+      line-height: 1.7;
+    }
+
+    .bullet-list li::before {
+      content: "■";
+      position: absolute;
+      left: 2px;
+      color: #0284c7;
+      font-size: 0.65em;
+      top: 0.35em;
+    }
+
+    .bullet-list.cyan li::before { color: #0d9488; }
+    .bullet-list.amber li::before { color: #d97706; }
+    .bullet-list.red li::before { color: #dc2626; }
+
+    /* Hierarchical Structure Styles */
+    .hierarchy-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      gap: 16px;
+      width: 100%;
+      flex: 1;
+      margin: 6px 0;
+    }
+
+    .hierarchy-card {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-left: 6px solid #0284c7;
+      border-radius: 12px;
+      padding: 16px 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hierarchy-card.single-item {
+      background: #f8fafc;
+      border-left: 4px solid #94a3b8;
+      padding: 14px 22px;
+    }
+
+    .hierarchy-title {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 25px;
+      font-weight: 800;
+      color: #0369a1;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .hierarchy-title.no-sub {
+      font-size: 23.5px;
+      font-weight: normal;
+      color: #1e293b;
+      margin-bottom: 0;
+    }
+
+    .hierarchy-badge {
+      color: #0284c7;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .hierarchy-card.single-item .hierarchy-badge {
+      color: #64748b;
+    }
+
+    .hierarchy-heading-text {
+      flex: 1;
+    }
+
+    .hierarchy-sub-list {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 0 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      flex: 1;
+      gap: 8px;
+    }
+
+    .hierarchy-sub-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 22.5px;
+      line-height: 1.55;
+      color: #1e293b;
+    }
+
+    .sub-bullet {
+      color: #0284c7;
+      font-weight: 900;
+      font-size: 20px;
+      flex-shrink: 0;
+      line-height: 1.55;
+    }
+
+    .sub-content {
+      flex: 1;
+    }
+
+    .card-sub-bullet {
+      margin-left: 16px !important;
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 8px !important;
+      font-size: 20px !important;
+    }
+
+    .card-sub-bullet::before {
+      display: none !important;
+    }
+
+    /* Ordered Numbered List */
+    .numbered-list {
+      list-style: none;
+      counter-reset: num-counter;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-evenly;
+      gap: 14px;
+      margin: 6px 0;
+      padding: 0;
+    }
+
+    .numbered-list > li {
+      counter-increment: num-counter;
+      position: relative;
+      padding-left: 52px;
+      font-size: 24.5px;
+      line-height: 1.65;
+      color: #1e293b;
+    }
+
+    .numbered-list > li::before {
+      content: counter(num-counter);
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 36px;
+      height: 36px;
+      background: #0284c7;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    code {
+      background: #f1f5f9;
+      color: #0369a1;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.9em;
+      font-family: var(--font-mono);
+      border: 1px solid #cbd5e1;
+    }
+
+    strong {
+      color: #0f172a;
+      font-weight: 800;
+    }
+
+    /* Drug Spec Chip (compact specification badge) */
+    .drug-spec-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #f0f9ff;
+      border: 1.5px solid #7dd3fc;
+      border-radius: 8px;
+      padding: 4px 14px;
+      margin-bottom: 8px;
+      width: fit-content;
+      flex-shrink: 0;
+    }
+
+    .chip-label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .chip-val {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    /* Card System: 2x2 Grid Fitting Exactly */
+    .card-grid {
+      display: grid;
+      grid-gap: 18px 22px;
+      width: 100%;
+      flex: 1;
+      height: 100%;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+      flex: 1;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      flex: 1;
+      min-height: 0;
+    }
+
+    .card.highlight-blue {
+      background: #f0f9ff;
+      border-color: #7dd3fc;
+      border-left: 6px solid #0284c7;
+    }
+    .card.highlight-cyan {
+      background: #f0fdfa;
+      border-color: #5eead4;
+      border-left: 6px solid #0d9488;
+    }
+    .card.highlight-amber {
+      background: #fffbeb;
+      border-color: #fde68a;
+      border-left: 6px solid #d97706;
+    }
+    .card.highlight-red {
+      background: #fff1f2;
+      border-color: #fda4af;
+      border-left: 6px solid #dc2626;
+    }
+    .card.highlight-purple {
+      background: #faf5ff;
+      border-color: #d8b4fe;
+      border-left: 6px solid #7e22ce;
+    }
+
+    .card-title {
+      font-size: 23px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1.5px solid rgba(0, 0, 0, 0.06);
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .sub-tag {
+      font-size: 15px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #0369a1;
+    }
+
+    .card-content-area {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      gap: 8px;
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    .card-text {
+      font-size: 20px;
+      color: #1e293b;
+      line-height: 1.55;
+    }
+
+    .card-bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      flex: 1;
+      gap: 6px;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .card-bullet-list li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 20px;
+      color: #1e293b;
+      line-height: 1.55;
+    }
+
+    .card-bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 3px;
+      color: #0284c7;
+      font-size: 1.1em;
+      top: 0;
+    }
+
+    /* Table Styling */
+    table.med-table tbody tr:last-child td {
+      border-bottom: none !important;
+    }
+    .table-container {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 6px 0;
+      width: 100%;
+      background: #ffffff;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      flex: none;
+    }
+
+    table.med-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table.med-table th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 800;
+      padding: 11px 16px;
+      border-bottom: 2.5px solid #cbd5e1;
+      font-size: 20px;
+      letter-spacing: -0.2px;
+    }
+
+    table.med-table td {
+      padding: 9.5px 16px;
+      border-bottom: 1.5px solid #e2e8f0;
+      color: #1e293b;
+      vertical-align: middle;
+      line-height: 1.48;
+      font-size: 18px;
+    }
+
+    table.med-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    /* Table and Drug Slide Layout: strictly fits without top clipping */
+    .slide:has(.table-container) .slide-body {
+      justify-content: flex-start;
+      gap: 10px;
+    }
+    .slide:has(.drug-linear-container) .slide-body {
+      justify-content: flex-start;
+      gap: 0;
+    }
+    .slide:has(.table-container) .slide-p {
+      font-size: 20px;
+      line-height: 1.55;
+      color: #1e293b;
+      margin-bottom: 2px;
+      flex-shrink: 0;
+    }
+    .slide:has(.table-container) .slide-h3 {
+      font-size: 25px;
+      margin-top: 0;
+      margin-bottom: 4px;
+      padding-left: 14px;
+      flex-shrink: 0;
+    }
+
+    /* Slide 88: Pathogen Summary Table Specialized Spacious Layout */
+    .slide-pathogen-summary .slide-body,
+    .slide[data-slide="88"] .slide-body {
+      justify-content: flex-start;
+      gap: 14px;
+    }
+    .slide-pathogen-summary .slide-h3,
+    .slide[data-slide="88"] .slide-h3 {
+      font-size: 25px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 8px;
+      padding-left: 14px;
+      flex-shrink: 0;
+    }
+    .slide-pathogen-summary .table-container,
+    .slide[data-slide="88"] .table-container {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 0;
+      width: 100%;
+      background: #ffffff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      flex: none;
+    }
+    .slide-pathogen-summary table.med-table th,
+    .slide[data-slide="88"] table.med-table th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 800;
+      padding: 14px 20px;
+      border-bottom: 2.5px solid #94a3b8;
+      font-size: 20px;
+      letter-spacing: -0.2px;
+    }
+    .slide-pathogen-summary table.med-table td,
+    .slide[data-slide="88"] table.med-table td {
+      padding: 13px 20px;
+      border-bottom: 1.5px solid #e2e8f0;
+      color: #1e293b;
+      vertical-align: middle;
+      line-height: 1.5;
+      font-size: 19px;
+    }
+    .slide-pathogen-summary table.med-table tr:nth-child(even),
+    .slide[data-slide="88"] table.med-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    .slide-pathogen-summary table.med-table tr:hover,
+    .slide[data-slide="88"] table.med-table tr:hover {
+      background: #f0fdf4;
+    }
+    .pathogen-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .pathogen-badge.red {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1.5px solid #fca5a5;
+    }
+    .pathogen-badge.purple {
+      background: #f3e8ff;
+      color: #6b21a8;
+      border: 1.5px solid #d8b4fe;
+    }
+    .pathogen-badge.blue {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1.5px solid #7dd3fc;
+    }
+    .pathogen-badge.amber {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1.5px solid #fcd34d;
+    }
+    .pathogen-badge.rose {
+      background: #ffe4e6;
+      color: #9f1239;
+      border: 1.5px solid #fda4af;
+    }
+    .pathogen-badge.teal {
+      background: #ccfbf1;
+      color: #115e59;
+      border: 1.5px solid #5eead4;
+    }
+    .pathogen-badge.darkred {
+      background: #fef2f2;
+      color: #7f1d1d;
+      border: 1.5px solid #f87171;
+    }
+
+    /* Slide 95: Antifungal Overview 5-Box Specialized Layout */
+    .slide-antifungal-overview .slide-body,
+    .slide[data-slide="95"] .slide-body {
+      padding: 0 !important;
+      justify-content: flex-start !important;
+      gap: 12px !important;
+    }
+    .antifungal-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: flex-start;
+      gap: 12px;
+      width: 100%;
+    }
+    .antifungal-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+    .antifungal-row-top {
+      display: grid;
+      grid-template-columns: 38fr 62fr;
+      gap: 16px;
+      height: 355px;
+    }
+    .antifungal-row-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      height: 295px;
+    }
+    .antifungal-box {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .antifungal-box.polyenes { border-top: 4.5px solid #ef4444; }
+    .antifungal-box.triazoles { border-top: 4.5px solid #0284c7; }
+    .antifungal-box.echinocandins { border-top: 4.5px solid #10b981; }
+    .antifungal-box.allylamines { border-top: 4.5px solid #f59e0b; }
+    .antifungal-box.antimetabolites { border-top: 4.5px solid #8b5cf6; }
+
+    .antifungal-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid #f1f5f9;
+      flex-shrink: 0;
+    }
+    .antifungal-box-title {
+      font-size: 19.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .antifungal-box-badge {
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 2.5px 9px;
+      border-radius: 12px;
+    }
+    .antifungal-drug-item {
+      padding: 5px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .antifungal-drug-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .drug-name-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .drug-main-name {
+      font-size: 17px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .drug-spec-pill {
+      font-size: 13px;
+      font-weight: 700;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 1.5px 7px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .drug-clinical-note {
+      font-size: 14.5px;
+      line-height: 1.44;
+      color: #334155;
+    }
+
+    /* Cover Slide Styling */
+    /* Cover Slide Styling */
+    .slide.cover-slide {
+      background: linear-gradient(135deg, #ffffff 50%, #f0f9ff 100%);
+      justify-content: center !important;
+      align-items: center !important;
+      padding: 50px 80px;
+      text-align: center !important;
+    }
+
+    .slide.cover-slide .slide-body {
+      justify-content: center !important;
+      align-items: center !important;
+      text-align: center !important;
+      width: 100% !important;
+    }
+
+    .cover-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      max-width: 1350px;
+      margin: auto 0;
+    }
+
+    .cover-top-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #f0f9ff;
+      border: 2px solid #bae6fd;
+      color: #0369a1;
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 20px;
+      margin-bottom: 22px;
+      width: fit-content;
+      text-align: center;
+    }
+
+    .pulse-dot {
+      width: 14px;
+      height: 14px;
+      background-color: #0284c7;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(2, 132, 199, 0.6);
+    }
+
+    .cover-title {
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.25;
+      color: #0f172a;
+      margin-bottom: 18px;
+      letter-spacing: -1px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .cover-subtitle {
+      font-size: 27px;
+      color: #334155;
+      font-weight: 600;
+      margin-bottom: 24px;
+      max-width: 1100px;
+      line-height: 1.5;
+      text-align: center;
+      padding: 0;
+      border: none;
+    }
+
+    .cover-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-size: 26px;
+      color: #1e293b;
+      padding-top: 18px;
+      border-top: 2px solid #e2e8f0;
+      margin-bottom: 28px;
+      width: 100%;
+      max-width: 650px;
+    }
+
+    .cover-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .cover-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      width: 100%;
+    }
+
+    .c-card {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .c-card-title {
+      font-size: 23px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .c-card-desc {
+      font-size: 19px;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    /* Section Transition Slide Layout */
+    .slide.transition-slide {
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+      justify-content: center !important;
+      align-items: center !important;
+      text-align: center !important;
+      padding: 50px 80px;
+    }
+
+    .slide.transition-slide .slide-body {
+      justify-content: center !important;
+      align-items: center !important;
+      text-align: center !important;
+      width: 100% !important;
+    }
+
+    .transition-hero-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      text-align: center !important;
+      margin: auto 0;
+    }
+
+    .part-badge {
+      display: inline-block;
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #0369a1;
+      background: #ffffff;
+      border: 2px solid #7dd3fc;
+      padding: 8px 26px;
+      border-radius: 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.1);
+      text-align: center !important;
+    }
+
+    .transition-title {
+      font-size: 52px;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.3;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+      text-align: center !important;
+      width: 100%;
+    }
+
+    .transition-quote {
+      font-size: 26px;
+      color: #0369a1;
+      font-weight: 700;
+      max-width: 960px;
+      line-height: 1.6;
+      border-left: 6px solid #0284c7;
+      border-right: 6px solid #0284c7;
+      padding: 14px 32px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      text-align: center !important;
+      margin: 0 auto 28px auto;
+    }
+
+    .transition-card {
+      max-width: 1300px;
+      width: 100%;
+      text-align: center !important;
+      padding: 32px 48px;
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 18px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .transition-focus-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: center !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100%;
+    }
+
+    .transition-focus-list li {
+      font-size: 27px;
+      line-height: 1.8;
+      color: #1e293b;
+      text-align: center !important;
+      width: 100%;
+    }
+
+    /* Floating navigation arrows (hidden as requested, using bottom toolbar instead) */
+    .floating-nav, .nav-arrow {
+      display: none !important;
+    }
+
+    /* Progress bar on top of bottom-nav */
+    .progress-bar-container {
+      position: absolute;
+      top: -3px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #e2e8f0;
+      z-index: 110;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 1%;
+      background: #0284c7;
+      transition: width 0.2s ease-out;
+    }
+
+
+    /* Drawer Modal for Slide Index */
+    .slide-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 48px;
+      width: min(500px, 92vw);
+      background: #ffffff;
+      border-left: 2px solid #cbd5e1;
+      z-index: 200;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .slide-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 16px 20px;
+      border-bottom: 2px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+    }
+
+    .drawer-header h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .drawer-search {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      width: 100%;
+      margin-top: 8px;
+      outline: none;
+    }
+
+    .drawer-search:focus {
+      border-color: #0284c7;
+    }
+
+    .drawer-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .drawer-item {
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #1e293b;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s ease;
+    }
+
+    .drawer-item:hover {
+      background: #e0f2fe;
+      border-color: #7dd3fc;
+      color: #0369a1;
+    }
+
+    .drawer-item.active {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .drawer-item .item-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+      min-width: 28px;
+    }
+
+    .drawer-item .item-title {
+      flex: 1;
+      white-space: normal;
+      line-height: 1.4;
+      font-size: 15px;
+    }
+
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.4);
+      z-index: 150;
+      display: none;
+    }
+
+    .drawer-backdrop.active {
+      display: block;
+    }
+
+    /* Print styling: A4 Portrait Clinical Handbook / Syllabus Layout */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm 10mm 12mm 10mm;
+      }
+
+      html, body {
+        background: #ffffff !important;
+        overflow: visible !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        position: static !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* Hide all interactive UI and navigation */
+      .bottom-nav, .floating-nav, .progress-bar-container, .slide-drawer, .drawer-backdrop, .speaker-notes-drawer,
+      #btnNotes, #btnOutline, #btnTheme, #btnFullscreen, #btnPrint, .nav-btn, .counter-pill, .btn-primary, .btn-outline {
+        display: none !important;
+      }
+
+      .presentation-stage {
+        position: static !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        height: auto !important;
+        width: 100% !important;
+        display: block !important;
+        background: #ffffff !important;
+        overflow: visible !important;
+      }
+
+      .slide-frame {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        transform: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        display: block !important;
+        overflow: visible !important;
+      }
+
+      /* Allow multiple slides per page, but NEVER split a single slide across pages */
+      .slide {
+        position: static !important;
+        inset: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        box-sizing: border-box !important;
+        page-break-before: auto !important;
+        break-before: auto !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        padding: 8pt 10pt !important;
+        margin: 0 0 12pt 0 !important;
+        background: #ffffff !important;
+        border: 1pt solid #cbd5e1 !important;
+        border-radius: 6pt !important;
+        color: #0f172a !important;
+        overflow: visible !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .slide:last-of-type {
+        margin-bottom: 0 !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+
+      /* Prevent atomic clinical cards from breaking awkwardly in half across pages */
+      .card, .c-card, .dim-card, .drug-sec, .hierarchy-card,
+      .antifungal-box, .target-card, .summary-item-row,
+      table, tr, .transition-card, .table-container {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      /* First Slide (Cover): Standalone Page */
+      .slide.cover-slide:first-of-type {
+        page-break-before: auto !important;
+        break-before: auto !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        border: 1.5pt solid #94a3b8 !important;
+        padding: 30pt 20pt !important;
+        margin: 0 !important;
+        min-height: 200mm !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+      }
+
+      /* Chapter Divider Slides: Fresh section page break */
+      .slide.transition-slide {
+        page-break-before: always !important;
+        break-before: page !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        border: 1.5pt solid #3b82f6 !important;
+        background: #f8fafc !important;
+        padding: 16pt 16pt !important;
+        margin: 0 0 12pt 0 !important;
+        text-align: center !important;
+        min-height: 0 !important;
+        height: auto !important;
+        display: block !important;
+      }
+
+      /* Slide 114 (Final Slide): Compact summary card */
+      .slide:last-of-type, .slide.cover-slide:last-of-type {
+        page-break-before: auto !important;
+        break-before: auto !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        border: 1.5pt solid #10b981 !important;
+        padding: 18pt 16pt !important;
+        margin: 0 !important;
+        min-height: 0 !important;
+        display: block !important;
+      }
+
+      /* ========================================================
+         UNIFIED TYPOGRAPHY HARMONY FOR PRINT (No 忽大忽小)
+         Level 1: Slide Title ~13pt
+         Level 2: Section/Card Title ~10.5pt
+         Level 3: Subheadings/Row Titles ~9.5pt
+         Level 4: Universal Body Text ~9pt
+         Level 5: Badges/Pills ~8pt
+         ======================================================== */
+
+      /* Level 1: Slide Titles */
+      .slide-title, .drug-main-title, .transition-title {
+        font-size: 13pt !important;
+        line-height: 1.25 !important;
+        font-weight: 800 !important;
+        color: #0f172a !important;
+        margin: 0 !important;
+        text-shadow: none !important;
+        -webkit-text-fill-color: initial !important;
+      }
+
+      .slide-header {
+        margin-bottom: 5pt !important;
+        border-bottom: 1pt solid #e2e8f0 !important;
+        padding-bottom: 3pt !important;
+      }
+      .drug-slide-header {
+        border-bottom: 1.5pt solid #cbd5e1 !important;
+        padding-bottom: 4pt !important;
+        margin-bottom: 5pt !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+      }
+
+      /* Level 2: Section / Card Titles & Sub-headers */
+      .slide h3, .slide .slide-h3, .slide .card-title, .slide .drug-sec-title,
+      .slide .antifungal-box-title, .slide .c-card-title,
+      .slide .hierarchy-title {
+        font-size: 10.2pt !important;
+        line-height: 1.3 !important;
+        font-weight: 800 !important;
+        color: #0f172a !important;
+      }
+
+      /* Level 3: Sub-headings */
+      .slide h4, .slide .slide-h4, .slide .drug-main-name {
+        font-size: 9.5pt !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+      }
+
+      /* Level 4: Universal Body Text, Lists & Clinical Notes */
+      .slide p, .slide .slide-p, .slide li, .slide .drug-item,
+      .slide .card-text, .slide .c-card-desc, .slide .sub-item,
+      .slide .drug-clinical-note, .slide .hierarchy-sub-item,
+      .slide .bullet-list li, .slide .card-bullet-list li,
+      .slide .numbered-list > li {
+        font-size: 9pt !important;
+        line-height: 1.35 !important;
+        color: #1e293b !important;
+      }
+
+      /* Universal Strict Inheritance for Bold & Inline Tags (NO 忽大忽小) */
+      .slide strong, .slide b,
+      .slide th strong, .slide td strong,
+      .slide h1 strong, .slide h2 strong, .slide h3 strong, .slide h4 strong,
+      .slide p strong, .slide li strong, .slide span strong {
+        font-size: inherit !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+      }
+
+      .slide th span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]):not(.step-num-badge),
+      .slide td span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]):not(.step-num-badge),
+      .slide h1 span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]):not(.step-num-badge),
+      .slide h2 span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]):not(.step-num-badge),
+      .slide h3 span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]):not(.step-num-badge),
+      .slide h4 span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]):not(.step-num-badge),
+      .slide p span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]):not(.step-num-badge),
+      .slide li span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]):not(.step-num-badge) {
+        font-size: inherit !important;
+        line-height: inherit !important;
+      }
+
+      /* Level 5: Badges, Pills & Small Meta */
+      .slide .slide-tag, .slide .drug-unit-pill, .slide .drug-page-badge,
+      .slide .drug-spec-pill, .slide .antifungal-box-badge,
+      .slide .hierarchy-badge, .slide .sub-tag, .slide .pathogen-badge,
+      .slide .drug-spec-chip {
+        font-size: 8pt !important;
+        padding: 1.5pt 4.5pt !important;
+        line-height: 1.2 !important;
+        font-weight: 700 !important;
+      }
+
+      .slide-body {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        display: block !important;
+      }
+
+      /* Drug Monographs Linear Layout */
+      .drug-linear-container {
+        overflow: visible !important;
+        height: auto !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 3.5pt !important;
+      }
+      .drug-sec {
+        padding-bottom: 2pt !important;
+        margin-bottom: 1.5pt !important;
+      }
+      .drug-sec-title {
+        margin-bottom: 1.5pt !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 4pt !important;
+      }
+      .sub-item {
+        margin-left: 12pt !important;
+      }
+      .bullet-dot {
+        margin-right: 3pt !important;
+      }
+
+      /* Card Grids & Cards */
+      .card-grid, .card-grid.grid-2 {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 5pt !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+      }
+      .card, .c-card, .dim-card {
+        background: #ffffff !important;
+        border: 1pt solid #cbd5e1 !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+        padding: 5pt 7pt !important;
+        border-radius: 4pt !important;
+      }
+      .card-title {
+        padding: 2pt 4pt !important;
+        margin-bottom: 2pt !important;
+        border-radius: 3pt !important;
+      }
+      .bullet-list, .card-bullet-list {
+        gap: 2pt !important;
+        margin: 2pt 0 !important;
+      }
+      .bullet-list li, .card-bullet-list li {
+        padding-left: 12pt !important;
+      }
+      .bullet-list li::before, .card-bullet-list li::before {
+        left: 2pt !important;
+        font-size: 8pt !important;
+      }
+
+      /* Hierarchy Cards */
+      .hierarchy-container {
+        gap: 3.5pt !important;
+        margin: 2pt 0 !important;
+      }
+      .hierarchy-card {
+        background: #ffffff !important;
+        border: 1pt solid #cbd5e1 !important;
+        border-left: 3pt solid #0284c7 !important;
+        border-radius: 4pt !important;
+        padding: 4pt 7pt !important;
+        box-shadow: none !important;
+      }
+      .hierarchy-card.single-item {
+        background: #f8fafc !important;
+        border-left: 2.5pt solid #94a3b8 !important;
+        padding: 3.5pt 6pt !important;
+      }
+      .hierarchy-title {
+        margin-bottom: 2pt !important;
+        gap: 4pt !important;
+      }
+      .hierarchy-sub-list {
+        padding-left: 8pt !important;
+        gap: 2pt !important;
+      }
+
+      /* Numbered Lists */
+      .numbered-list {
+        gap: 3pt !important;
+        margin: 2pt 0 !important;
+      }
+      .numbered-list > li {
+        padding-left: 18pt !important;
+      }
+      .numbered-list > li::before {
+        width: 14pt !important;
+        height: 14pt !important;
+        font-size: 8pt !important;
+        top: 1pt !important;
+      }
+
+      /* Tables in Print: strictly unified across all slides (No 忽大忽小) */
+      .table-container, .pathogen-table-container, .filters-table-wrapper {
+        overflow: visible !important;
+        height: auto !important;
+        max-height: none !important;
+        margin: 4pt 0 !important;
+        box-shadow: none !important;
+      }
+      table, .med-table, .pathogen-table, .filters-table,
+      .slide-pathogen-summary table.med-table,
+      .slide[data-slide="88"] table.med-table,
+      .betalactam-container .med-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin: 0 !important;
+      }
+      table th, .med-table th, .pathogen-table th, .filters-table th,
+      .slide-pathogen-summary table.med-table th,
+      .slide[data-slide="88"] table.med-table th,
+      .betalactam-container .med-table th {
+        padding: 4pt 6pt !important;
+        font-size: 9.5pt !important;
+        font-weight: 800 !important;
+        line-height: 1.28 !important;
+        background: #f1f5f9 !important;
+        color: #0f172a !important;
+        border-bottom: 1.5pt solid #94a3b8 !important;
+        text-align: left !important;
+        letter-spacing: normal !important;
+      }
+      table td, .med-table td, .pathogen-table td, .filters-table td,
+      .slide-pathogen-summary table.med-table td,
+      .slide[data-slide="88"] table.med-table td,
+      .betalactam-container .med-table td {
+        padding: 4pt 6pt !important;
+        font-size: 8.8pt !important;
+        line-height: 1.35 !important;
+        color: #1e293b !important;
+        vertical-align: middle !important;
+        border-bottom: 1pt solid #e2e8f0 !important;
+        letter-spacing: normal !important;
+      }
+      table td strong, .med-table td strong, .pathogen-table td strong, .filters-table td strong,
+      .slide-pathogen-summary table.med-table td strong,
+      .slide[data-slide="88"] table.med-table td strong,
+      .betalactam-container .med-table td strong,
+      table th strong, .med-table th strong, .pathogen-table th strong {
+        font-size: inherit !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+      }
+      table td span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]),
+      .med-table td span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]),
+      .pathogen-table td span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]),
+      .filters-table td span:not([class*="badge"]):not([class*="pill"]):not([class*="tag"]) {
+        font-size: inherit !important;
+        line-height: inherit !important;
+      }
+
+      /* ========================================================
+         SLIDE 95: 常用抗黴菌藥物全品項分類架構 (ANTI-TRUNCATION)
+         ======================================================== */
+      .antifungal-container {
+        height: auto !important;
+        overflow: visible !important;
+        gap: 5pt !important;
+        width: 100% !important;
+      }
+      .antifungal-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6pt !important;
+        width: 100% !important;
+        height: auto !important;
+      }
+      .antifungal-row-top {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 5pt !important;
+        height: auto !important;
+        width: 100% !important;
+      }
+      .antifungal-row-bottom {
+        display: grid !important;
+        grid-template-columns: 1.15fr 0.9fr 0.95fr !important;
+        gap: 5pt !important;
+        height: auto !important;
+        width: 100% !important;
+      }
+      .antifungal-box {
+        height: auto !important;
+        overflow: visible !important;
+        box-shadow: none !important;
+        padding: 5pt 8pt !important;
+        margin-bottom: 4pt !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        border: 1pt solid #cbd5e1 !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .antifungal-box.polyenes { border-top: 3pt solid #ef4444 !important; }
+      .antifungal-box.triazoles { border-top: 3pt solid #0284c7 !important; }
+      .antifungal-box.echinocandins { border-top: 3pt solid #10b981 !important; }
+      .antifungal-box.allylamines { border-top: 3pt solid #f59e0b !important; }
+      .antifungal-box.antimetabolites { border-top: 3pt solid #8b5cf6 !important; }
+
+      .antifungal-box-header {
+        margin-bottom: 4pt !important;
+        padding-bottom: 3pt !important;
+      }
+      .antifungal-box-title {
+        font-size: 10.5pt !important;
+        font-weight: 800 !important;
+      }
+      /* Triazoles sub-columns: span 100% width with 2 neat columns */
+      .antifungal-box.triazoles > div:last-child {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8pt !important;
+        height: auto !important;
+      }
+      .antifungal-drug-item {
+        padding: 2.5pt 0 !important;
+        height: auto !important;
+        border-bottom: 0.5pt dashed #cbd5e1 !important;
+      }
+      .antifungal-drug-item:last-child {
+        border-bottom: none !important;
+      }
+      .drug-name-row {
+        display: flex !important;
+        align-items: baseline !important;
+        justify-content: space-between !important;
+        gap: 4pt !important;
+      }
+      .drug-main-name {
+        font-size: 9.5pt !important;
+        font-weight: 700 !important;
+      }
+      .drug-spec-pill {
+        font-size: 7.8pt !important;
+        padding: 1pt 3.5pt !important;
+        white-space: nowrap !important;
+      }
+      .drug-clinical-note {
+        font-size: 8.8pt !important;
+        line-height: 1.35 !important;
+        margin-top: 1.5pt !important;
+      }
+
+      /* ========================================================
+         SLIDE 96: 抗黴菌藥物的作用標的
+         ======================================================== */
+      .antifungal-targets-container {
+        height: auto !important;
+        overflow: visible !important;
+        gap: 4pt !important;
+      }
+      .antifungal-targets-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4pt !important;
+        height: auto !important;
+      }
+      .antifungal-targets-grid .target-card {
+        padding: 4pt 7pt !important;
+        border-radius: 4pt !important;
+        height: auto !important;
+        flex: none !important;
+        gap: 8pt !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .antifungal-targets-grid .target-card .step-num-badge {
+        width: 14pt !important;
+        height: 14pt !important;
+        font-size: 8.5pt !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* ========================================================
+         SLIDE 108: 抗黴菌輸注過濾器
+         ======================================================== */
+      .antifungal-filters-container {
+        height: auto !important;
+        overflow: visible !important;
+        gap: 4pt !important;
+      }
+      .antifungal-filters-container > div:first-child {
+        padding: 4pt 7pt !important;
+        border-radius: 4pt !important;
+      }
+      .filters-table-wrapper {
+        height: auto !important;
+        overflow: visible !important;
+      }
+      .filters-table {
+        height: auto !important;
+        width: 100% !important;
+        border-collapse: collapse !important;
+      }
+      .filters-table th {
+        padding: 3pt 5pt !important;
+        font-size: 9.5pt !important;
+      }
+      .filters-table td {
+        padding: 3pt 5pt !important;
+        font-size: 8.8pt !important;
+        line-height: 1.3 !important;
+      }
+      .antifungal-filters-container > div:last-child {
+        padding: 4pt 7pt !important;
+        border-radius: 4pt !important;
+      }
+
+      /* ========================================================
+         SLIDE 110: Candidemia 5 步驟處置路徑
+         ======================================================== */
+      .candidemia-timeline-container {
+        height: auto !important;
+        overflow: visible !important;
+        gap: 4pt !important;
+      }
+      .candidemia-timeline-container > div:first-child {
+        padding: 4pt 8pt !important;
+        border-radius: 4pt !important;
+      }
+      .candidemia-timeline-container > div:nth-child(2) {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4pt !important;
+        height: auto !important;
+      }
+      .candidemia-timeline-container > div:nth-child(2) > div {
+        padding: 4pt 8pt !important;
+        border-radius: 4pt !important;
+        border-top: none !important;
+        border-left: 3.5pt solid !important;
+        height: auto !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .candidemia-timeline-container > div:nth-child(2) > div:nth-child(1) { border-left-color: #ef4444 !important; }
+      .candidemia-timeline-container > div:nth-child(2) > div:nth-child(2) { border-left-color: #f97316 !important; }
+      .candidemia-timeline-container > div:nth-child(2) > div:nth-child(3) { border-left-color: #eab308 !important; }
+      .candidemia-timeline-container > div:nth-child(2) > div:nth-child(4) { border-left-color: #3b82f6 !important; }
+      .candidemia-timeline-container > div:nth-child(2) > div:nth-child(5) { border-left-color: #10b981 !important; }
+      .candidemia-timeline-container > div:nth-child(2) > div span {
+        font-size: 8pt !important;
+        padding: 1pt 4pt !important;
+      }
+      .candidemia-timeline-container > div:nth-child(2) > div div {
+        font-size: 8.8pt !important;
+        line-height: 1.3 !important;
+        padding: 2pt 4pt !important;
+        margin-bottom: 2pt !important;
+      }
+
+      /* ========================================================
+         SLIDE 112: 黴菌單元回顧與照護整合
+         ======================================================== */
+      .antifungal-summary-container {
+        height: auto !important;
+        overflow: visible !important;
+        gap: 4pt !important;
+      }
+      .summary-items-list {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 3.5pt !important;
+        height: auto !important;
+      }
+      .summary-item-row {
+        gap: 8pt !important;
+        height: auto !important;
+        align-items: flex-start !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .summary-item-row > span {
+        width: 14pt !important;
+        height: 14pt !important;
+        font-size: 8.5pt !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* ========================================================
+         SLIDE 24: β-Lactam 共同核心與四大分類
+         ======================================================== */
+      .betalactam-container {
+        height: auto !important;
+        overflow: visible !important;
+        gap: 4pt !important;
+      }
+      .betalactam-container div[style*="background: #f0f9ff"],
+      .betalactam-container div[style*="background: #fffbeb"] {
+        padding: 4pt 7pt !important;
+        border-radius: 4pt !important;
+      }
+      .betalactam-container .table-container {
+        height: auto !important;
+        overflow: visible !important;
+      }
+      .betalactam-container .med-table th {
+        padding: 3pt 5pt !important;
+        font-size: 9.5pt !important;
+      }
+      .betalactam-container .med-table td {
+        padding: 3pt 5pt !important;
+        font-size: 8.8pt !important;
+        line-height: 1.3 !important;
+      }
+
+      /* ========================================================
+         SLIDE 45: TDM 採血時機與時間軸
+         ======================================================== */
+      .tdm-timeline-container {
+        height: auto !important;
+        overflow: visible !important;
+        gap: 4pt !important;
+      }
+      .tdm-timeline-container > div {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 5pt 8pt !important;
+      }
+      .tdm-timeline-container div[style*="position: relative; display: flex"] {
+        flex-wrap: wrap !important;
+        gap: 4pt !important;
+        justify-content: flex-start !important;
+      }
+      .tdm-timeline-container div[style*="position: absolute"] {
+        display: none !important;
+      }
+
+      /* ========================================================
+         SLIDE 15: 抗菌作用標的圖解
+         ======================================================== */
+      .targets-diagram-container {
+        height: auto !important;
+        width: 100% !important;
+      }
+      .targets-diagram-container img {
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: 140mm !important;
+      }
+
+      /* ========================================================
+         SLIDE 113: 重點回顧四宮格
+         ======================================================== */
+      .slide .card-grid.grid-2 {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 5pt !important;
+      }
+      .slide .card-grid.grid-2 .card {
+        padding: 5pt 7pt !important;
+        height: auto !important;
+      }
+      .slide .card-grid.grid-2 .card ul, .slide .card-grid.grid-2 .card li {
+        gap: 3pt !important;
+      }
+
+      /* ========================================================
+         SLIDE 114: 感謝聆聽與核心守則
+         ======================================================== */
+      .slide.cover-slide:last-of-type, .slide:last-of-type {
+        min-height: 0 !important;
+        padding: 18pt 16pt !important;
+      }
+      .slide:last-of-type .cover-title {
+        font-size: 18pt !important;
+      }
+      .slide:last-of-type .cover-subtitle {
+        font-size: 10pt !important;
+      }
+      .slide:last-of-type .cover-cards-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
+        gap: 5pt !important;
+      }
+      .slide:last-of-type .c-card {
+        padding: 6pt 8pt !important;
+      }
+      .slide:last-of-type .c-card-title {
+        font-size: 9.8pt !important;
+      }
+      .slide:last-of-type .c-card-desc {
+        font-size: 8.5pt !important;
+        line-height: 1.35 !important;
+      }
+
+      /* Cover Hero in Print */
+      .cover-hero {
+        text-align: center !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      .cover-top-tag {
+        font-size: 9.5pt !important;
+        padding: 2pt 8pt !important;
+        margin-bottom: 8pt !important;
+        display: inline-block !important;
+      }
+      .cover-title {
+        font-size: 20pt !important;
+        line-height: 1.25 !important;
+        margin-bottom: 8pt !important;
+        color: #0f172a !important;
+      }
+      .cover-subtitle {
+        font-size: 10.5pt !important;
+        margin-bottom: 12pt !important;
+        color: #475569 !important;
+      }
+      .cover-meta {
+        gap: 12pt !important;
+        margin-top: 10pt !important;
+        margin-bottom: 12pt !important;
+        justify-content: center !important;
+      }
+      .cover-cards-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
+        gap: 6pt !important;
+        margin-bottom: 10pt !important;
+      }
+      .cover-cards-grid .c-card {
+        padding: 6pt 8pt !important;
+      }
+
+      /* Transition Hero in Print */
+      .slide.transition-slide .slide-body {
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+      }
+      .transition-hero-container {
+        text-align: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 4pt 0 !important;
+      }
+      .part-badge {
+        font-size: 9pt !important;
+        padding: 2pt 8pt !important;
+        margin-bottom: 5pt !important;
+        text-align: center !important;
+      }
+      .transition-title {
+        font-size: 15pt !important;
+        line-height: 1.3 !important;
+        margin-bottom: 5pt !important;
+        text-align: center !important;
+        color: #000000 !important;
+      }
+      .transition-quote {
+        font-size: 9.5pt !important;
+        padding: 4pt 8pt !important;
+        margin: 0 auto 6pt auto !important;
+        text-align: center !important;
+      }
+      .transition-card {
+        padding: 6pt 12pt !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+        max-width: 95% !important;
+      }
+      .transition-focus-list {
+        text-align: center !important;
+        align-items: center !important;
+        gap: 4pt !important;
+      }
+      .transition-focus-list li {
+        font-size: 9pt !important;
+        line-height: 1.35 !important;
+        text-align: center !important;
+      }
+    }
+  
+
+/* ==========================================================
+   Course Specific Components (Harmonized with 16:9 White System)
+   ========================================================== */
+
+/* Slide Cover Layout (Optional Split with Image) */
+.slide-cover-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  height: 100%;
+  padding: 20px 40px;
+}
+.cover-left {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.cover-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cover-img {
+  max-width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  border: 2px solid #cbd5e1;
+}
+
+/* Grids */
+.grid-split-2, .grid-cards-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  height: 100%;
+  min-height: 0;
+}
+.grid-cards-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Info Cards */
+.info-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  height: 100%;
+}
+.info-card-header {
+  background: #f8fafc;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding: 14px 20px;
+  font-size: 21px;
+  font-weight: 800;
+  color: #0369a1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.info-card-header i, .info-card-header svg {
+  width: 24px;
+  height: 24px;
+  color: #0284c7;
+  flex-shrink: 0;
+}
+.info-card-body {
+  padding: 18px 20px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Grid Cards (for Agenda & Overviews) */
+.grid-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+.grid-card:hover {
+  border-color: #0284c7;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.12);
+}
+.grid-card-icon {
+  font-size: 24px;
+  color: #0284c7;
+}
+.grid-card-icon i, .grid-card-icon svg {
+  width: 28px;
+  height: 28px;
+}
+.grid-card-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+}
+.grid-card-desc {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0369a1;
+  background: #e0f2fe;
+  padding: 3px 10px;
+  border-radius: 8px;
+  display: inline-block;
+  align-self: flex-start;
+}
+.grid-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 16px;
+  color: #334155;
+  line-height: 1.5;
+}
+.grid-card-list li {
+  position: relative;
+  padding-left: 18px;
+}
+.grid-card-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #0284c7;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Bullet Lists within Info Cards */
+.bullet-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 18.5px;
+  line-height: 1.6;
+  color: #1e293b;
+}
+.bullet-icon {
+  color: #0284c7;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.bullet-icon i, .bullet-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Alert & Caution Boxes */
+.warning-box {
+  background: #fffbeb;
+  border: 1.5px solid #fde68a;
+  border-left: 6px solid #d97706;
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.warning-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.warning-icon i, .warning-icon svg {
+  width: 22px;
+  height: 22px;
+  color: #d97706;
+}
+.warning-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #92400e;
+  margin-bottom: 4px;
+}
+.warning-text {
+  font-size: 16.5px;
+  color: #78350f;
+  line-height: 1.55;
+}
+
+.caution-box {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-left: 6px solid #dc2626;
+  border-radius: 14px;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  overflow-y: auto;
+}
+.caution-icon {
+  margin-bottom: 2px;
+}
+.caution-icon i, .caution-icon svg {
+  width: 26px;
+  height: 26px;
+  color: #dc2626;
+}
+.caution-title {
+  font-size: 21px;
+  font-weight: 800;
+  color: #991b1b;
+}
+
+/* Badges */
+.badge-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.badge-primary {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+.badge-danger {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+.badge-warning {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+/* Table Matrix */
+.table-responsive {
+  width: 100%;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.table-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 17px;
+  line-height: 1.5;
+}
+.table-matrix th {
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 10px 14px;
+  font-weight: 800;
+  border-bottom: 2px solid #cbd5e1;
+  text-align: left;
+}
+.table-matrix td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #1e293b;
+  vertical-align: top;
+}
+.table-matrix tr:last-child td {
+  border-bottom: none;
+}
+.table-matrix tr:nth-child(even) td {
+  background: #f8fafc;
+}
+
+/* Flow Container (Hour-1 Bundle & Candidemia Steps) */
+.flow-container {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+}
+.flow-step {
+  flex: 1;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+.flow-step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0284c7;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.flow-step-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+.flow-step-desc {
+  font-size: 16.5px;
+  color: #334155;
+  line-height: 1.55;
+}
+
+/* Golden Rules (Slide 23) */
+.golden-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.golden-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+.golden-card:hover {
+  border-color: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(2, 132, 199, 0.12);
+}
+.golden-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.golden-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.golden-title {
+  font-size: 17.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+.golden-desc {
+  font-size: 15px;
+  color: #334155;
+  line-height: 1.5;
+}
+
+/* Interactive Quiz (Slide 114) - Big Text & Balanced Height */
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 16px;
+  box-sizing: border-box;
+}
+.quiz-tabs {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.quiz-tab {
+  background: #f1f5f9;
+  border: 2px solid #cbd5e1;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-size: 19px;
+  font-weight: 800;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.quiz-tab:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+.quiz-tab.active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+}
+.quiz-panel {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+.quiz-panel.active {
+  display: flex;
+}
+.quiz-question {
+  background: #f8fafc;
+  border: 2px solid #cbd5e1;
+  border-left: 8px solid #0284c7;
+  border-radius: 12px;
+  padding: 20px 28px;
+  font-size: 26px; /* BIG question text */
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+}
+.quiz-question strong {
+  color: #0284c7;
+  font-weight: 900;
+  font-size: 27px;
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.quiz-option {
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 16px 26px;
+  font-size: 22px; /* BIG option font */
+  font-weight: 600;
+  color: #1e293b;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  line-height: 1.5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+.quiz-option strong {
+  color: #0284c7;
+  font-size: 24px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.quiz-option:hover {
+  background: #f0f9ff;
+  border-color: #0284c7;
+  transform: translateX(4px);
+}
+.quiz-option.correct {
+  background: #f0fdf4 !important;
+  border: 2.5px solid #16a34a !important;
+  color: #166534 !important;
+  font-weight: 800;
+}
+.quiz-option.correct strong {
+  color: #16a34a !important;
+}
+.quiz-option.incorrect {
+  background: #fef2f2 !important;
+  border: 2.5px solid #dc2626 !important;
+  color: #991b1b !important;
+}
+.quiz-option.incorrect strong {
+  color: #dc2626 !important;
+}
+.quiz-feedback {
+  display: none;
+  background: #f0fdf4;
+  border: 2px solid #86efac;
+  border-left: 8px solid #16a34a;
+  border-radius: 12px;
+  padding: 22px 28px;
+  font-size: 21px; /* BIG feedback font */
+  color: #166534;
+  line-height: 1.65;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.08);
+}
+.quiz-feedback.show {
+  display: block;
+  animation: fadeIn 0.25s ease-out;
+}
+.quiz-hint-box {
+  background: #f8fafc;
+  border: 2px dashed #93c5fd;
+  border-radius: 12px;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #334155;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+.quiz-hint-box.hide {
+  display: none;
+}
