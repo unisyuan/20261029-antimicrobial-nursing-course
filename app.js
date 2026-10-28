@@ -711,8 +711,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const stageW = stage.clientWidth;
         const stageH = stage.clientHeight;
 
-        const padX = stageW > 1024 ? 6 : 0;
-        const padY = stageH > 800 ? 6 : 0;
+        const padX = stageW > 1024 ? 8 : 0;
+        const padY = stageH > 800 ? 12 : 6;
 
         const availW = Math.max(100, stageW - padX);
         const availH = Math.max(100, stageH - padY);
@@ -778,12 +778,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleFullscreen() {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(err => {
-                console.log(`Fullscreen error: ${err.message}`);
-            });
+        const isFS = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+        if (!isFS) {
+            const el = document.documentElement;
+            const rfs = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+            if (rfs) {
+                rfs.call(el).catch(err => {
+                    console.log(`Fullscreen error: ${err.message}`);
+                });
+            }
         } else {
-            document.exitFullscreen();
+            const efs = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+            if (efs) {
+                efs.call(document);
+            }
         }
     }
 
@@ -946,16 +954,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Window Resize Handling
     window.addEventListener('resize', updateSlideScale);
-    document.addEventListener('fullscreenchange', () => {
+
+    function handleFullscreenChange() {
+        const isFS = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+        if (isFS) {
+            document.documentElement.classList.add('is-fullscreen');
+            document.body.classList.add('is-fullscreen');
+        } else {
+            document.documentElement.classList.remove('is-fullscreen');
+            document.body.classList.remove('is-fullscreen');
+        }
         updateSlideScale();
         setTimeout(updateSlideScale, 50);
         setTimeout(updateSlideScale, 150);
-    });
-    document.addEventListener('webkitfullscreenchange', () => {
-        updateSlideScale();
-        setTimeout(updateSlideScale, 50);
-        setTimeout(updateSlideScale, 150);
-    });
+        setTimeout(updateSlideScale, 300);
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 
     // Initial Hash / Deep Linking Handling
     function handleHashChange() {

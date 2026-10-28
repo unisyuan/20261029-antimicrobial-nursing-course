@@ -82,18 +82,22 @@
       user-select: text;
     }
 
+    .is-fullscreen .presentation-stage,
     :fullscreen .presentation-stage,
     :-webkit-full-screen .presentation-stage {
       bottom: 48px !important;
       height: calc(100vh - 48px) !important;
+      height: calc(100dvh - 48px) !important;
       background-color: #0b1120;
     }
+    .is-fullscreen .slide-frame,
     :fullscreen .slide-frame,
     :-webkit-full-screen .slide-frame {
       border: none;
       border-radius: 8px;
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     }
+    .is-fullscreen .bottom-nav,
     :fullscreen .bottom-nav,
     :-webkit-full-screen .bottom-nav {
       opacity: 1 !important;
@@ -102,28 +106,33 @@
       border-top: 1px solid #334155 !important;
       box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4) !important;
     }
+    .is-fullscreen .brand-title,
     :fullscreen .brand-title,
     :-webkit-full-screen .brand-title {
       color: #f8fafc !important;
     }
+    .is-fullscreen .section-pill,
     :fullscreen .section-pill,
     :-webkit-full-screen .section-pill {
       background: #1e293b !important;
       color: #38bdf8 !important;
       border-color: #334155 !important;
     }
+    .is-fullscreen .slide-counter,
     :fullscreen .slide-counter,
     :-webkit-full-screen .slide-counter {
       background: #1e293b !important;
       color: #f8fafc !important;
       border-color: #334155 !important;
     }
+    .is-fullscreen .btn-icon,
     :fullscreen .btn-icon,
     :-webkit-full-screen .btn-icon {
       background: #1e293b !important;
       color: #f1f5f9 !important;
       border-color: #334155 !important;
     }
+    .is-fullscreen .btn-icon:hover,
     :fullscreen .btn-icon:hover,
     :-webkit-full-screen .btn-icon:hover {
       background: #334155 !important;
@@ -132,12 +141,15 @@
 
     /* Support hiding navigation bar via hotkey H or toggle */
     body.nav-hidden .presentation-stage,
+    .is-fullscreen.nav-hidden .presentation-stage,
     :fullscreen body.nav-hidden .presentation-stage,
     :-webkit-full-screen body.nav-hidden .presentation-stage {
       bottom: 0 !important;
       height: 100vh !important;
+      height: 100dvh !important;
     }
     body.nav-hidden .bottom-nav,
+    .is-fullscreen.nav-hidden .bottom-nav,
     :fullscreen body.nav-hidden .bottom-nav,
     :-webkit-full-screen body.nav-hidden .bottom-nav {
       transform: translateY(100%) !important;
