@@ -839,14 +839,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPrev = document.getElementById('btnPrev');
     const btnDrawer = document.getElementById('btnDrawer');
     const btnCloseDrawer = document.getElementById('btnCloseDrawer');
+    const btnToggleNav = document.getElementById('btnToggleNav');
     const btnFullscreen = document.getElementById('btnFullscreen');
     const btnPrint = document.getElementById('btnPrint');
+
+    function toggleNav() {
+        document.body.classList.toggle('nav-hidden');
+        updateSlideScale();
+        setTimeout(updateSlideScale, 50);
+    }
 
     if (btnNext) btnNext.addEventListener('click', nextSlide);
     if (btnPrev) btnPrev.addEventListener('click', prevSlide);
     if (btnDrawer) btnDrawer.addEventListener('click', openDrawer);
     if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', closeDrawer);
     if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+    if (btnToggleNav) btnToggleNav.addEventListener('click', toggleNav);
     if (btnFullscreen) btnFullscreen.addEventListener('click', toggleFullscreen);
     if (btnPrint) btnPrint.addEventListener('click', () => window.print());
 
@@ -885,6 +893,11 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'F':
                 e.preventDefault();
                 toggleFullscreen();
+                break;
+            case 'h':
+            case 'H':
+                e.preventDefault();
+                toggleNav();
                 break;
             case 'm':
             case 'M':
@@ -933,6 +946,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Window Resize Handling
     window.addEventListener('resize', updateSlideScale);
+    document.addEventListener('fullscreenchange', () => {
+        updateSlideScale();
+        setTimeout(updateSlideScale, 50);
+        setTimeout(updateSlideScale, 150);
+    });
+    document.addEventListener('webkitfullscreenchange', () => {
+        updateSlideScale();
+        setTimeout(updateSlideScale, 50);
+        setTimeout(updateSlideScale, 150);
+    });
 
     // Initial Hash / Deep Linking Handling
     function handleHashChange() {

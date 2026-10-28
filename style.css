@@ -84,26 +84,84 @@
 
     :fullscreen .presentation-stage,
     :-webkit-full-screen .presentation-stage {
-      bottom: 0 !important;
-      height: 100vh;
+      bottom: 48px !important;
+      height: calc(100vh - 48px) !important;
       background-color: #0b1120;
     }
     :fullscreen .slide-frame,
     :-webkit-full-screen .slide-frame {
       border: none;
-      border-radius: 0;
+      border-radius: 8px;
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     }
     :fullscreen .bottom-nav,
     :-webkit-full-screen .bottom-nav {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      background: #0f172a !important;
+      border-top: 1px solid #334155 !important;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4) !important;
     }
-    :fullscreen:hover .bottom-nav,
-    :-webkit-full-screen:hover .bottom-nav {
-      opacity: 1;
-      pointer-events: auto;
+    :fullscreen .brand-title,
+    :-webkit-full-screen .brand-title {
+      color: #f8fafc !important;
+    }
+    :fullscreen .section-pill,
+    :-webkit-full-screen .section-pill {
+      background: #1e293b !important;
+      color: #38bdf8 !important;
+      border-color: #334155 !important;
+    }
+    :fullscreen .slide-counter,
+    :-webkit-full-screen .slide-counter {
+      background: #1e293b !important;
+      color: #f8fafc !important;
+      border-color: #334155 !important;
+    }
+    :fullscreen .btn-icon,
+    :-webkit-full-screen .btn-icon {
+      background: #1e293b !important;
+      color: #f1f5f9 !important;
+      border-color: #334155 !important;
+    }
+    :fullscreen .btn-icon:hover,
+    :-webkit-full-screen .btn-icon:hover {
+      background: #334155 !important;
+      border-color: #475569 !important;
+    }
+
+    /* Support hiding navigation bar via hotkey H or toggle */
+    body.nav-hidden .presentation-stage,
+    :fullscreen body.nav-hidden .presentation-stage,
+    :-webkit-full-screen body.nav-hidden .presentation-stage {
+      bottom: 0 !important;
+      height: 100vh !important;
+    }
+    body.nav-hidden .bottom-nav,
+    :fullscreen body.nav-hidden .bottom-nav,
+    :-webkit-full-screen body.nav-hidden .bottom-nav {
+      transform: translateY(100%) !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .bottom-hover-trigger {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 14px;
+      z-index: 999;
+      display: none;
+    }
+    body.nav-hidden .bottom-hover-trigger {
+      display: block;
+    }
+    body.nav-hidden .bottom-hover-trigger:hover + .bottom-nav,
+    body.nav-hidden .bottom-nav:hover {
+      transform: translateY(0) !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
     }
 
     /* Bottom presentation control bar: STRICTLY LOCKED CONSTANT 48px HEIGHT */
