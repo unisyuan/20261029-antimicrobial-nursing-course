@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const totalSlides = 115;
+    const totalSlides = 116;
     let currentIndex = 0;
     const slides = document.querySelectorAll('.slide');
     const counterEl = document.getElementById('slideCounter');
@@ -607,96 +607,102 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "index": 99,
-        "title": "Itraconazole 膠囊與給藥衛教",
+        "title": "Itraconazole (PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
         "index": 100,
-        "title": "Voriconazole 的監測",
+        "title": "Fluconazole (IV / PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
         "index": 101,
-        "title": "Posaconazole (PO)",
+        "title": "Voriconazole (IV / PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
         "index": 102,
-        "title": "Isavuconazonium sulfate (IV / PO)",
+        "title": "Posaconazole (PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
         "index": 103,
-        "title": "Anidulafungin (IV)",
+        "title": "Isavuconazonium sulfate (IV / PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
         "index": 104,
-        "title": "Micafungin (IV)",
+        "title": "Anidulafungin (IV)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
         "index": 105,
-        "title": "Flucytosine / 5-FC (PO)",
+        "title": "Micafungin (IV)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
         "index": 106,
-        "title": "Terbinafine (PO / 外用)",
+        "title": "Flucytosine / 5-FC (PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
         "index": 107,
-        "title": "抗黴菌輸注過濾器",
+        "title": "Terbinafine (PO / 外用)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
         "index": 108,
+        "title": "抗黴菌輸注過濾器",
+        "category": "重點 6",
+        "tag_color": "purple"
+    },
+    {
+        "index": 109,
         "title": "學習重點 7｜侵襲性真菌感染處置與照護總結",
         "category": "重點 7",
         "tag_color": "purple"
     },
     {
-        "index": 109,
+        "index": 110,
         "title": "Candidemia 的治療與追蹤",
         "category": "重點 7",
         "tag_color": "purple"
     },
     {
-        "index": 110,
+        "index": 111,
         "title": "侵襲性黴菌感染與隱球菌腦膜炎",
         "category": "重點 7",
         "tag_color": "purple"
     },
     {
-        "index": 111,
+        "index": 112,
         "title": "黴菌單元回顧與照護整合",
         "category": "重點 7",
         "tag_color": "purple"
     },
     {
-        "index": 112,
+        "index": 113,
         "title": "臨床重點回顧｜抗微生物與抗黴菌用藥核心守則",
         "category": "總結回顧",
         "tag_color": "blue"
     },
     {
-        "index": 113,
+        "index": 114,
         "title": "課堂實戰互動驗收 (5 道臨床精選題)",
         "category": "實戰驗收",
         "tag_color": "amber"
     },
     {
-        "index": 114,
+        "index": 115,
         "title": "感謝聆聽・敬請指教 (守護用藥安全)",
         "category": "課程結語",
         "tag_color": "green"
@@ -711,8 +717,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const stageW = stage.clientWidth;
         const stageH = stage.clientHeight;
 
-        const padX = stageW > 1024 ? 8 : 0;
-        const padY = stageH > 800 ? 12 : 6;
+        const padX = stageW > 1024 ? 6 : 0;
+        const padY = stageH > 800 ? 6 : 0;
 
         const availW = Math.max(100, stageW - padX);
         const availH = Math.max(100, stageH - padY);
@@ -778,20 +784,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleFullscreen() {
-        const isFS = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-        if (!isFS) {
-            const el = document.documentElement;
-            const rfs = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
-            if (rfs) {
-                rfs.call(el).catch(err => {
-                    console.log(`Fullscreen error: ${err.message}`);
-                });
-            }
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.log(`Fullscreen error: ${err.message}`);
+            });
         } else {
-            const efs = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
-            if (efs) {
-                efs.call(document);
-            }
+            document.exitFullscreen();
         }
     }
 
@@ -847,22 +845,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPrev = document.getElementById('btnPrev');
     const btnDrawer = document.getElementById('btnDrawer');
     const btnCloseDrawer = document.getElementById('btnCloseDrawer');
-    const btnToggleNav = document.getElementById('btnToggleNav');
     const btnFullscreen = document.getElementById('btnFullscreen');
     const btnPrint = document.getElementById('btnPrint');
-
-    function toggleNav() {
-        document.body.classList.toggle('nav-hidden');
-        updateSlideScale();
-        setTimeout(updateSlideScale, 50);
-    }
 
     if (btnNext) btnNext.addEventListener('click', nextSlide);
     if (btnPrev) btnPrev.addEventListener('click', prevSlide);
     if (btnDrawer) btnDrawer.addEventListener('click', openDrawer);
     if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', closeDrawer);
     if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
-    if (btnToggleNav) btnToggleNav.addEventListener('click', toggleNav);
     if (btnFullscreen) btnFullscreen.addEventListener('click', toggleFullscreen);
     if (btnPrint) btnPrint.addEventListener('click', () => window.print());
 
@@ -901,11 +891,6 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'F':
                 e.preventDefault();
                 toggleFullscreen();
-                break;
-            case 'h':
-            case 'H':
-                e.preventDefault();
-                toggleNav();
                 break;
             case 'm':
             case 'M':
@@ -954,26 +939,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Window Resize Handling
     window.addEventListener('resize', updateSlideScale);
-
-    function handleFullscreenChange() {
-        const isFS = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-        if (isFS) {
-            document.documentElement.classList.add('is-fullscreen');
-            document.body.classList.add('is-fullscreen');
-        } else {
-            document.documentElement.classList.remove('is-fullscreen');
-            document.body.classList.remove('is-fullscreen');
-        }
-        updateSlideScale();
-        setTimeout(updateSlideScale, 50);
-        setTimeout(updateSlideScale, 150);
-        setTimeout(updateSlideScale, 300);
-    }
-
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
-    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 
     // Initial Hash / Deep Linking Handling
     function handleHashChange() {
