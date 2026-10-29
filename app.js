@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const totalSlides = 116;
+    const totalSlides = 118;
     let currentIndex = 0;
     const slides = document.querySelectorAll('.slide');
     const counterEl = document.getElementById('slideCounter');
@@ -181,528 +181,540 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "index": 28,
-        "title": "Cephalosporins 的用途與監測",
-        "category": "重點 3",
-        "tag_color": "blue"
-    },
-    {
-        "index": 29,
         "title": "Cefazolin (IV / IM)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
-        "index": 30,
+        "index": 29,
         "title": "Cephalexin (PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
-        "index": 31,
+        "index": 30,
         "title": "Cefoxitin (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
-        "index": 32,
+        "index": 31,
         "title": "Cefmetazole (IV / IM)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
-        "index": 33,
+        "index": 32,
         "title": "Flomoxef (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
-        "index": 34,
+        "index": 33,
         "title": "Ceftriaxone (IV / IM)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
+        "index": 34,
+        "title": "Cefotaxime (IV / IM)",
+        "category": "重點 3",
+        "tag_color": "blue"
+    },
+    {
         "index": 35,
-        "title": "Cefoperazone / Sulbactam (IV)",
+        "title": "Ceftazidime (IV / IM)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 36,
-        "title": "Cefepime (IV / IM)",
+        "title": "Cefixime (PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 37,
-        "title": "Ceftaroline (IV)",
+        "title": "Cefoperazone / Sulbactam (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 38,
-        "title": "Cefiderocol (IV)",
+        "title": "Cefepime (IV / IM)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 39,
-        "title": "Carbapenems：類別通性、臨床定位與安全指引",
+        "title": "Ceftaroline (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 40,
-        "title": "Ertapenem (IV / IM)",
+        "title": "Cefiderocol (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 41,
-        "title": "Imipenem / Cilastatin (IV)",
+        "title": "Carbapenems：類別通性、臨床定位與安全指引",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 42,
-        "title": "Meropenem (IV)",
+        "title": "Ertapenem (IV / IM)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 43,
-        "title": "Aztreonam / Avibactam (IV)",
+        "title": "Imipenem / Cilastatin (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 44,
-        "title": "Ceftazidime / Avibactam (IV)",
+        "title": "Meropenem (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 45,
-        "title": "Ceftolozane / Tazobactam (IV)",
+        "title": "Aztreonam / Avibactam (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 46,
-        "title": "β-Lactam 過敏與側鏈",
+        "title": "Ceftazidime / Avibactam (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 47,
-        "title": "Vancomycin (IV / PO)",
+        "title": "Ceftolozane / Tazobactam (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 48,
-        "title": "Teicoplanin (IV / IM)",
+        "title": "β-Lactam 過敏與側鏈",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 49,
-        "title": "Daptomycin (IV)",
+        "title": "Vancomycin (IV / PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 50,
-        "title": "Linezolid (IV / PO)",
+        "title": "Teicoplanin (IV / IM)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 51,
-        "title": "Clindamycin (IV / PO)",
+        "title": "Daptomycin (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 52,
-        "title": "Metronidazole (IV / PO)",
+        "title": "Linezolid (IV / PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 53,
-        "title": "Colistin (CMS, IV / 吸入)",
+        "title": "Clindamycin (IV / PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 54,
-        "title": "Polymyxin B (IV)",
+        "title": "Metronidazole (IV / PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 55,
-        "title": "Gentamicin (IV / IM)",
+        "title": "Colistin (CMS, IV / 吸入)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 56,
-        "title": "Amikacin (IV / IM)",
+        "title": "Polymyxin B (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 57,
-        "title": "Ciprofloxacin (IV / PO)",
+        "title": "Gentamicin (IV / IM)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 58,
-        "title": "Levofloxacin (IV / PO / 外用)",
+        "title": "Amikacin (IV / IM)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 59,
-        "title": "Moxifloxacin (PO / 外用)",
+        "title": "Ciprofloxacin (IV / PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 60,
-        "title": "Nemonoxacin (IV / PO)",
+        "title": "Levofloxacin (IV / PO / 外用)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 61,
-        "title": "Ofloxacin (耳滴劑)",
+        "title": "Moxifloxacin (PO / 外用)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 62,
-        "title": "Doxycycline (PO)",
+        "title": "Nemonoxacin (IV / PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 63,
-        "title": "Minocycline (PO / IV)",
+        "title": "Ofloxacin (耳滴劑)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 64,
-        "title": "Tetracycline (PO)",
+        "title": "Doxycycline (PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 65,
-        "title": "Tigecycline (IV)",
+        "title": "Minocycline (PO / IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 66,
-        "title": "Erythromycin (IV / PO / 眼膏)",
+        "title": "Tetracycline (PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 67,
-        "title": "Azithromycin (PO)",
+        "title": "Tigecycline (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 68,
-        "title": "Clarithromycin (IV / PO)",
+        "title": "Erythromycin (IV / PO / 眼膏)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 69,
-        "title": "Trimethoprim / Sulfamethoxazole (IV / PO)",
+        "title": "Azithromycin (PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 70,
-        "title": "Fosfomycin (IV)",
+        "title": "Clarithromycin (IV / PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 71,
-        "title": "每日鈉與輸液總量",
+        "title": "Trimethoprim / Sulfamethoxazole (IV / PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 72,
-        "title": "TDM 採血與紀錄",
+        "title": "Fosfomycin (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 73,
-        "title": "從商品仿單核對抗菌藥配製",
+        "title": "每日鈉與輸液總量",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 74,
+        "title": "TDM 採血與紀錄",
+        "category": "重點 3",
+        "tag_color": "blue"
+    },
+    {
+        "index": 75,
+        "title": "從商品仿單核對抗菌藥配製",
+        "category": "重點 3",
+        "tag_color": "blue"
+    },
+    {
+        "index": 76,
         "title": "學習重點 4｜臨床實務：經驗治療與重症應變",
         "category": "重點 4",
         "tag_color": "red"
     },
     {
-        "index": 75,
+        "index": 77,
         "title": "抗菌譜與臨床選藥",
         "category": "重點 4",
         "tag_color": "red"
     },
     {
-        "index": 76,
+        "index": 78,
         "title": "經驗性治療與治療重評",
         "category": "重點 4",
         "tag_color": "red"
     },
     {
-        "index": 77,
+        "index": 79,
         "title": "敗血症的抗菌治療時效",
         "category": "重點 4",
         "tag_color": "red"
     },
     {
-        "index": 78,
+        "index": 80,
         "title": "肺炎的經驗性治療",
         "category": "重點 4",
         "tag_color": "red"
     },
     {
-        "index": 79,
+        "index": 81,
         "title": "尿路與腹內感染的判讀",
         "category": "重點 4",
         "tag_color": "red"
     },
     {
-        "index": 80,
+        "index": 82,
         "title": "特殊細菌感染：壞死性筋膜炎與腦膜炎",
         "category": "重點 4",
         "tag_color": "red"
     },
     {
-        "index": 81,
+        "index": 83,
         "title": "學習重點 5｜抗藥菌打擊：超級細菌與抗生素降階",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 82,
+        "index": 84,
         "title": "MRSA 與 VRE 的治療判讀",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 83,
+        "index": 85,
         "title": "ESBL 與 AmpC",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 84,
+        "index": 86,
         "title": "CRE 與抗藥酶型別",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 85,
+        "index": 87,
         "title": "抗藥性 Pseudomonas aeruginosa",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 86,
+        "index": 88,
         "title": "CRAB 與含 Sulbactam 方案",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 87,
+        "index": 89,
         "title": "細菌病原導向治療摘要",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 88,
+        "index": 90,
         "title": "抗菌藥物降階",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 89,
+        "index": 91,
         "title": "院內抗生素管理與交班",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 90,
+        "index": 92,
         "title": "細菌感染的臨床查詢工具",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 91,
+        "index": 93,
         "title": "護理執行重點",
         "category": "重點 5",
         "tag_color": "amber"
     },
     {
-        "index": 92,
+        "index": 94,
         "title": "學習重點 6｜抗黴菌各論：真菌分類與特殊操作",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 93,
+        "index": 95,
         "title": "黴菌分類與感染情境",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 94,
+        "index": 96,
         "title": "常用抗黴菌藥物",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 95,
+        "index": 97,
         "title": "抗黴菌藥物的作用標的",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 96,
+        "index": 98,
         "title": "傳統去氧膽酸鹽 Amphotericin B deoxycholate (IV)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 97,
+        "index": 99,
         "title": "微脂體劑型 Liposomal Amphotericin B (IV)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 98,
+        "index": 100,
         "title": "Triazoles 的交互作用",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 99,
+        "index": 101,
         "title": "Itraconazole (PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 100,
+        "index": 102,
         "title": "Fluconazole (IV / PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 101,
+        "index": 103,
         "title": "Voriconazole (IV / PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 102,
+        "index": 104,
         "title": "Posaconazole (PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 103,
+        "index": 105,
         "title": "Isavuconazonium sulfate (IV / PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 104,
+        "index": 106,
         "title": "Anidulafungin (IV)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 105,
+        "index": 107,
         "title": "Micafungin (IV)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 106,
+        "index": 108,
         "title": "Flucytosine / 5-FC (PO)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 107,
+        "index": 109,
         "title": "Terbinafine (PO / 外用)",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 108,
+        "index": 110,
         "title": "抗黴菌輸注過濾器",
         "category": "重點 6",
         "tag_color": "purple"
     },
     {
-        "index": 109,
+        "index": 111,
         "title": "學習重點 7｜侵襲性真菌感染處置與照護總結",
         "category": "重點 7",
         "tag_color": "purple"
     },
     {
-        "index": 110,
+        "index": 112,
         "title": "Candidemia 的治療與追蹤",
         "category": "重點 7",
         "tag_color": "purple"
     },
     {
-        "index": 111,
+        "index": 113,
         "title": "侵襲性黴菌感染與隱球菌腦膜炎",
         "category": "重點 7",
         "tag_color": "purple"
     },
     {
-        "index": 112,
+        "index": 114,
         "title": "黴菌單元回顧與照護整合",
         "category": "重點 7",
         "tag_color": "purple"
     },
     {
-        "index": 113,
+        "index": 115,
         "title": "臨床重點回顧｜抗微生物與抗黴菌用藥核心守則",
         "category": "總結回顧",
         "tag_color": "blue"
     },
     {
-        "index": 114,
+        "index": 116,
         "title": "課堂實戰互動驗收 (5 道臨床精選題)",
         "category": "實戰驗收",
         "tag_color": "amber"
     },
     {
-        "index": 115,
+        "index": 117,
         "title": "感謝聆聽・敬請指教 (守護用藥安全)",
         "category": "課程結語",
         "tag_color": "green"
