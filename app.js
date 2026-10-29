@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "index": 61,
-        "title": "Ofloxacin (外用)",
+        "title": "Ofloxacin (耳滴劑)",
         "category": "重點 3",
         "tag_color": "blue"
     },
@@ -427,13 +427,13 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
         "index": 69,
-        "title": "Trimethoprim / Sulfamethoxazole",
+        "title": "Trimethoprim / Sulfamethoxazole (IV / PO)",
         "category": "重點 3",
         "tag_color": "blue"
     },
     {
         "index": 70,
-        "title": "IV Fosfomycin 與鈉負荷",
+        "title": "Fosfomycin (IV)",
         "category": "重點 3",
         "tag_color": "blue"
     },
